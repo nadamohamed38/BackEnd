@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/index.js"></script>
+</head>
+<body>
+    <div class="p-3 d-flex justify-content-between">
+        <div class=""><i class="back fa fa-arrow-left text-warning fw-bolder fs-4" onclick="goBack()" aria-hidden="true"></i></div>
+        <div class="text-center flex-grow-1"><h1 class="text-warning fw-bold"><i class="fa fa-car"></i> Car Rental System</h1></div>
+    </div>
+    
+    <div class="main flex-column justify-content-center align-items-center vh-100">
+        <div class="m-2"><button type="button" class="btn btn-outline-warning" onclick="office()" style="padding: 6px 60px;">Office</button></div>
+        <div class="m-2"><button type="button" class="btn btn-outline-warning" onclick="customer()" style="padding: 6px 60px;">Customer</button></div>
+    </div>
+    
+    <div class="customer" style="display: none;">
+        <div class="customer_main flex-column justify-content-center align-items-center vh-100">
+            <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="showLogin()">Login</button></div>
+            <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="showRegister()">Register</button></div>
+            <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="showSearchCar()">Search for available cars</button></div>
+            
+        </div>
+
+        <div class="login" style="display: none;">
+            <div class="m-5" id="alertLogin"></div>
+            <div class="form text-warning flex-column justify-content-center align-items-center vh-100">
+                <div class="mb-2 w-50">
+                    <label for="login_email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="login_email" placeholder="" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="login_pass" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="login_pass" placeholder="" required>
+                </div>
+                <button class="btn btn-warning text-white px-5" type="button" onclick="loginCustomer()">Login</button>
+                <div class="mt-3">
+                    <button type="button" class="btn btn-link" onclick="toggleForms()">Don't have an account? Register here.</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="Register" style="display: none;">
+            <div class="m-5" id="alertRegister"></div>
+            <div class="form text-warning flex-column justify-content-center align-items-center vh-100">
+                <div class="mb-2 w-50"> 
+                    <label for="register_fname" class="form-label">First Name</label>
+                    <input type="fname" class="form-control" id="register_fname" placeholder="" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="register_lname" class="form-label">Last Name</label>
+                    <input type="lname" class="form-control" id="register_lname" placeholder="" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="register_email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="register_email" placeholder="" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="register_pass" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="register_pass" placeholder="" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="confirm_pass_id" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_pass_id" placeholder="" required>
+                </div>
+                <button class="btn btn-warning text-white px-5" type="button" onclick="addCustomer()">Register</button>
+                <div class="mt-3">
+                    <button type="button" class="btn btn-link" onclick="toggleForms()">Already have an account? Login here.</button>
+                </div>
+               
+            </div>
+        </div>
+        <div class="searchCar" style="display: none;">
+          <div class="m-5" id="alertSearchCar"></div>
+          <div class="form text-warning flex-column justify-content-center align-items-center vh-100">
+            <div class="mb-2 w-50">
+                <label for="yyear" class="form-label">Year</label>
+                <input type="text" class="form-control" id="yyear" placeholder="e.g., 2020">
+            </div>
+            <div class="mb-2 w-50">
+                <label for="ymodel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="ymodel" placeholder="e.g., Toyota">
+            </div>
+            <div class="mb-2 w-50">
+                <label for="yoffice_id" class="form-label">Office ID</label>
+                <input type="text" class="form-control" id="yoffice_id" placeholder="e.g., 1">
+            </div>
+            <button class="btn btn-warning text-white px-5" type="button" onclick="searchCars()">Search</button>
+            <div class="results">
+                <h2>Available Cars</h2>
+                <table class="table" id="ResultsTable">
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+      <div class="reservation" style="display: none;">
+        <div class="m-5" id="alertreserve"></div>
+        <div class="form text-warning flex-column justify-content-center align-items-center vh-100">
+            <div class="mb-2 w-50">
+                <label for="car_model" class="form-label">Car Model</label>
+                <input type="text" class="form-control" id="car_model" placeholder="Enter car model" required>
+            </div>
+            <div class="mb-2 w-50">
+                <label for="reservation_start_date" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="reservation_start_date" required>
+            </div>
+            <div class="mb-2 w-50">
+                <label for="reservation_end_date" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="reservation_end_date" required>
+            </div>
+            <div class="mb-2 w-50">
+                <label for="customer_name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="customer_name" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-2 w-50">
+                <label for="customer_phone" class="form-label">Your Phone Number</label>
+                <input type="tel" class="form-control" id="customer_phone" placeholder="Enter your phone number" required>
+            </div>
+            <button class="btn btn-warning text-white px-5" type="button" onclick="makeReservation()">Reserve</button>
+        </div>
+    </div>
+</div>
+  </div>
+
+    </div>
+
+    <div class="office" style="display: none;">
+        <div class="office_main flex-column justify-content-center align-items-center vh-100">
+            <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="showAdd()">Add Car</button></div>
+            <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="showUpdate()">Update Car</button></div>
+            <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="showSearch()">Search</button></div>
+        </div>
+
+        <div class="add" style="display: none;">
+            <div class="m-5" id="alertAdd"></div>
+            <div class="form text-warning flex-column justify-content-center align-items-center vh-100">
+                <div class="mb-2 w-50">
+                    <label for="aplate_id" class="form-label">(required) Plate ID</label>
+                    <input type="text" class="form-control" id="aplate_id" placeholder="ex:1234abcd" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="aoffice_id" class="form-label">(required) Your Office ID</label>
+                    <input type="text" class="form-control" id="aoffice_id" placeholder="office_id" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="ayear" class="form-label">(required) Year</label>
+                    <input type="number" class="form-control" id="ayear" placeholder="2004" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="amodel" class="form-label">(required) Model</label>
+                    <input type="text" class="form-control" id="amodel" placeholder="Toyota" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="astatus" class="form-label">(required) Status</label>
+                    <input type="text" class="form-control" id="astatus" placeholder="active, rented, or out of service" required>
+                </div>
+                <button class="btn btn-warning text-white px-5" type="button" onclick="addCar()">Add</button>
+            </div>
+        </div>
+
+        <div class="update" style="display: none;">
+            <div class="alert m-5" id="alertt"></div>
+            <div class="form text-warning flex-column justify-content-center align-items-center vh-100">
+                <div class="mb-2 w-50">
+                    <label for="uoffice_id" class="form-label">Your Office ID</label>
+                    <input type="text" class="form-control" id="uoffice_id" placeholder="office_id" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="uplate_id" class="form-label">Enter Existing Plate ID</label>
+                    <input type="text" class="form-control" id="uplate_id" placeholder="ex:1234abcd" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="uyear" class="form-label">Update Year</label>
+                    <input type="number" class="form-control" id="uyear" placeholder="2004" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="umodel" class="form-label">Update Model</label>
+                    <input type="text" class="form-control" id="umodel" placeholder="Toyota" required>
+                </div>
+                <div class="mb-2 w-50">
+                    <label for="ustatus" class="form-label">Update Status</label>
+                    <input type="text" class="form-control" id="ustatus" placeholder="active, rented, or out of service" required>
+                </div>
+                <button class="btn btn-warning text-white px-5" type="button" onclick="updateCar()">Update Car</button>
+            </div>
+        </div>
+
+        <div class="search" style="display: none;">
+            <div class=" search_main flex-column justify-content-center align-items-center vh-100">
+                <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="advancedSearch()">Advanced Search</button></div>
+                <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="reservedCars()">Reserved Cars</button></div>
+                <div class="m-2"><button type="button" class="btn btn-warning text-white px-5" onclick="SearchSP()">Status & Payment</button></div>
+            </div>
+
+            <div class="mainForm" style="display: none;">
+                <div class="container text-warning my-5" id="form">
+                    <div class="row g-2" id="row"></div>
+                </div>
+
+                <div class="mx-5 text-warning">
+                    <h2 class="fw-bold">RESULT:</h2>
+                    <div id="">
+                        <table class="table table-warning table-striped table-hover w-100" id="tableRes">
+                            <!-- Results will be populated here -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

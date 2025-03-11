@@ -1,0 +1,126 @@
+.back {
+  cursor: pointer;
+}
+
+.main {
+  display: flex;
+}
+
+.office {
+  display: none;
+  background: url('../2d_car-removebg-preview.png');
+  background-position: 0% center;
+  background-repeat: no-repeat;
+  animation: Move 5s infinite forwards;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.office_main {
+  display: flex;
+}
+
+.office .add {
+  display: none;
+}
+
+.office .add .form {
+  display: flex;
+}
+
+.office .update {
+  display: none;
+}
+
+.office .update .form {
+  display: flex;
+}
+
+.office .search {
+  display: none;
+}
+
+.office .search .search_main {
+  display: flex;
+}
+
+.office .search .mainForm {
+  display: none;
+}
+
+/* Customer Section Styles */
+.customer {
+  display: none;
+  background: url('../2d_car-removebg-preview.png');
+  background-position: 0% center;
+  background-repeat: no-repeat;
+  animation: Move 5s infinite forwards;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.customer_main {
+  display: flex;
+
+}
+
+.customer .Register {
+  display: none; 
+}
+.customer .Register .form {
+  display: flex; }
+
+
+.customer .login {
+  display: none; 
+}
+.customer .login .form{
+  display: flex;
+}
+
+.customer .searchCar {
+  display: none;
+}
+.customer .searchCar .form{
+  display: flex;
+}
+.customer .reservation {
+  display: none;
+}
+.customer .reservation .form{
+  display: flex;
+}
+
+
+.form {
+  width: 100%;
+  max-width: 500px;
+  margin: auto; 
+}
+
+.form .form-label {
+  font-weight: bold;
+}
+
+.form .form-control {
+  margin-bottom: 15px; 
+}
+
+.btn-warning {
+  background-color: #ffc107; 
+  border: none; 
+}
+
+.btn-warning:hover {
+  background-color: #e0a800; 
+}
+
+/* Animation for the office background */
+@keyframes Move {
+  0% { background-position: 150%; }
+  100% { background-position: -60%; }
+}
